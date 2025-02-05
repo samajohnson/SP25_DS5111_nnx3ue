@@ -12,7 +12,7 @@ After logging onto a new VM the user should do the following:
 - How to set up virtual enviornment with make update
 - 
 
-
+## VM Setup
 
 Use the script from last lab to install chrome headless browser. Use example.com for a quick test.
 Mention requirements.txt file. At this point we only need pandas and lxml
