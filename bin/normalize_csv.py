@@ -54,6 +54,7 @@ def normalize_csv(input_csv_path: str):
     # Save normalized CSV
     df.to_csv(output_csv_path, index=False)
     print(f"Normalized file saved: {output_csv_path}")
+    return df
 
 if __name__ == "__main__":
     assert len(sys.argv) == 2, "Usage: python bin/normalize_csv.py <path to raw gainers csv>"
