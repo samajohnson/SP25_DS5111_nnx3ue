@@ -25,5 +25,6 @@ SP25_DS5111_nnx3ue
 ├── README.md
 └──requirements.txt
 
+![Feature Validation](https://github.com/samajohnson/SP25_DS5111_nnx3ue/actions/workflows/validations.yml/badge.svg)
 
 
