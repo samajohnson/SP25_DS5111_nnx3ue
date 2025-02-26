@@ -6,7 +6,7 @@ sys.path.append('.')
 import bin.normalize_csv as normalize
 
 def test_normalize():
-    csv_path = Path(__file__).parent.parent / "ygainers.csv"
+    csv_path = Path(__file__).parent / "ygainers.csv"
 
     df = normalize.normalize_csv(str(csv_path))
     #df = normalize.normalize_csv("ygainers.csv")
