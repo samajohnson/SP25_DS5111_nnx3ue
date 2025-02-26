@@ -58,4 +58,4 @@ def normalize_csv(input_csv_path: str):
 
 if __name__ == "__main__":
     assert len(sys.argv) == 2, "Usage: python bin/normalize_csv.py <path to raw gainers csv>"
-    normalize_csv(sys.argv[1])
+    normalize_csv('/home/runner/work/SP25_DS5111_nnx3ue/SP25_DS5111_nnx3ue/ygainers.csv')
