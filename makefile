@@ -6,7 +6,7 @@ env:
 
 update: env
 	. env/bin/activate; pip install -r requirements.txt
-
+	bash -c "source env/bin/activate && pip install -r requirements.txt"
 ygainers.html:
 	sudo google-chrome-stable --headless --disable-gpu --no-sandbox --timeout=5000 'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200' > ygainers.html
 
