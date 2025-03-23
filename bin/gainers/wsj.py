@@ -1,6 +1,5 @@
 import os
 from .base import GainerDownload, GainerProcess
-from bin.normalize_csv import normalize_csv
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
