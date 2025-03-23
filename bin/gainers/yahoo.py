@@ -36,7 +36,7 @@ class GainerDownloadYahoo(GainerDownload):
 
         # Check if the file was created
         if not os.path.exists('ygainers.html'):
-            raise Exception("Failed to download the HTML page from Yahoo Finance")
+            raise OSError("Failed to download the HTML page from Yahoo Finance")
 
         print("Successfully downloaded Yahoo Gainers HTML to ygainers.html")
         raw = pd.read_html('ygainers.html')
@@ -94,9 +94,9 @@ class GainerProcessYahoo(GainerProcess):
             print(f"Error: The CSV file is empty: {e}")
         except pd.errors.ParserError as e:
             print(f"Error: There was a problem parsing the CSV file: {e}")
-        except Exception as e:
+        except OSError as e:
         # Catch any other unexpected exceptions
-            print(f"Unexpected error occurred: {e}")
+            print(f"Unexpected OS error occurred: {e}")
 
 
 
@@ -112,5 +112,5 @@ class GainerProcessYahoo(GainerProcess):
             normalized_data = pd.read_csv('downloaded_data/norm_ygainers.csv')
             normalized_data.to_csv(f"downloaded_data/{timestamp}_norm_ygainers.csv", index=False)
             print(f"Yahoo Gainers saved with timestamp: {timestamp}")
-        except Exception as e:
+        except OSError as e:
             print(f"Error saving the timestamped CSV file: {e}")

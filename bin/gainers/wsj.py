@@ -37,7 +37,7 @@ class GainerDownloadWSJ(GainerDownload):
 
         # Check if the file was created
         if not os.path.exists('wsjgainers.html'):
-            raise Exception("Failed to download the HTML page from WSJ")
+            raise OSError("Failed to download the HTML page from WSJ")
 
         print("Successfully downloaded WSJ Gainers HTML to wsjgainers.html")
         raw = pd.read_html('wsjgainers.html')
@@ -83,8 +83,15 @@ class GainerProcessWSJ(GainerProcess):
             # Save normalized CSV
             raw.to_csv('downloaded_data/norm_wsjgainers.csv', index=False)
             print("Normalized file saved")
-        except Exception as e:
-            print(f"Error saving the CSV file: {e}")
+        except FileNotFoundError as e:
+            print(f"Error: The file was not found: {e}")
+        except pd.errors.EmptyDataError as e:
+            print(f"Error: The CSV file is empty: {e}")
+        except pd.errors.ParserError as e:
+            print(f"Error: There was a problem parsing the CSV file: {e}")
+        except OSError as e:
+            # Catch any other unexpected exceptions related to OS/file system
+            print(f"Unexpected OS error occurred: {e}")
 
     def save_with_timestamp(self):
         """
@@ -98,5 +105,5 @@ class GainerProcessWSJ(GainerProcess):
             normalized_data = pd.read_csv('downloaded_data/norm_wsjgainers.csv')
             normalized_data.to_csv(f"downloaded_data/{timestamp}_norm_wsjgainers.csv", index=False)
             print(f"WSJ Gainers saved with timestamp: {timestamp}")
-        except Exception as e:
+        except OSError as e:
             print(f"Error saving the timestamped CSV file: {e}")
