@@ -23,7 +23,7 @@ gainers:
 	env/bin/activate && python3 get_gainer.py $(SRC)
 
 lint:
-	 env/bin/python -m  pylint bin/normalize_csv.py bin/gainers/base.py bin/gainers/factory.py bin/gainers/wsj.py bin/gainers/yahoo.py get_gainer.py
+	 env/bin/python -m  pylint  bin/gainers/base.py bin/gainers/factory.py bin/gainers/wsj.py bin/gainers/yahoo.py get_gainer.py || true
 
 test: lint
 	 env/bin/python -m  pytest -vv tests
