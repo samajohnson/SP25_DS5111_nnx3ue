@@ -5,10 +5,10 @@ using headless Chrome and the `GainerProcessYahoo` class for normalizing and
 saving the data.
 """
 import os
-import pandas as pd
 from datetime import datetime
-from .base import GainerDownload, GainerProcess
-
+import pandas as pd
+#from .base import GainerDownload, GainerProcess
+from bin.gainers.base import GainerDownload, GainerProcess
 
 class GainerDownloadYahoo(GainerDownload):
     """
@@ -23,7 +23,7 @@ class GainerDownloadYahoo(GainerDownload):
 
     def download(self):
         """
-        Downloads the Yahoo Gainers HTML page using headless Chrome 
+        Downloads the Yahoo Gainers HTML page using headless Chrome
         and saves the content as an HTML file, then converts it to CSV.
 
         :raises Exception: If downloading the page fails.
@@ -52,48 +52,52 @@ class GainerProcessYahoo(GainerProcess):
     A class to process the Yahoo Gainers data by normalizing and saving it.
     Inherits from GainerProcess and implements the normalize and save_with_timestamp methods.
     """
-    def __init__(self):
-        """
-        Initializes the GainerProcessYahoo class.
-        """
-        pass
 
     def normalize(self):
         """
-        Normalizes the Yahoo Gainers data by renaming columns, enforcing data types, 
+        Normalizes the Yahoo Gainers data by renaming columns, enforcing data types,
         and saving it as a CSV.
 
         :raises Exception: If saving the normalized CSV file fails.
         """
         print("Normalizing yahoo gainers")
-        raw = pd.read_csv('downloaded_data/ygainers.csv')
-
-        raw = raw[["Name", "Volume", "Price", "Change", "Change %"]]
-        raw['Price'] = raw['Price'].str.split(' ').str[0]
-        raw['Change %'] = raw['Change %'].str[1:-1]
-    # Define expected columns mapping
-        column_mapping = {
-            "Change": "Price Change",
-            "Change %": "Price Percent Change"
-        }
-
-    # Rename columns
-        raw.rename(columns=column_mapping, inplace=True)
-
-    # Enforce data types
-        raw["Name"] = raw["Name"].astype(str)
-    
-        raw["Price"] = pd.to_numeric(raw["Price"], errors="coerce")
-        raw["Price Change"] = pd.to_numeric(raw["Price Change"], errors="coerce")
-        raw["Price Percent Change"] = pd.to_numeric(raw["Price Percent Change"], errors="coerce")
-
-    # Save normalized CSV
         try:
+            raw = pd.read_csv('downloaded_data/ygainers.csv')
+
+            # Select relevant columns
+            raw = raw[["Name", "Volume", "Price", "Change", "Change %"]]
+            raw['Price'] = raw['Price'].str.split(' ').str[0]
+            raw['Change %'] = raw['Change %'].str[1:-1]
+
+            # Define expected columns mapping
+            column_mapping = {
+                "Change": "Price Change",
+                "Change %": "Price Percent Change"
+            }
+
+            # Rename columns
+            raw.rename(columns=column_mapping, inplace=True)
+
+            # Enforce data types
+            raw["Price"] = pd.to_numeric(raw["Price"], errors="coerce")
+            raw["Price Change"] = pd.to_numeric(raw["Price Change"], errors="coerce")
+            raw["Price Percent Change"] = pd.to_numeric(
+                raw["Price Percent Change"], errors="coerce")
+
+            # Save normalized CSV
             raw.to_csv('downloaded_data/norm_ygainers.csv', index=False)
-            print(f"Normalized file saved")
+            print("Normalized file saved")
+
+        except FileNotFoundError as e:
+            print(f"Error: The file was not found: {e}")
+        except pd.errors.EmptyDataError as e:
+            print(f"Error: The CSV file is empty: {e}")
+        except pd.errors.ParserError as e:
+            print(f"Error: There was a problem parsing the CSV file: {e}")
         except Exception as e:
-            print(f"Error saving the CSV file: {e}")
-            return None
+        # Catch any other unexpected exceptions
+            print(f"Unexpected error occurred: {e}")
+
 
 
     def save_with_timestamp(self):
@@ -103,8 +107,10 @@ class GainerProcessYahoo(GainerProcess):
         :raises Exception: If saving the timestamped file fails.
         """
         print("Saving Yahoo gainers")
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        normalized_data = pd.read_csv('downloaded_data/norm_ygainers.csv')
-        normalized_data.to_csv(f"downloaded_data/{timestamp}_norm_ygainers.csv", index=False)
-        print(f"Yahoo gainers saved with timestamp")
-
+        try:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            normalized_data = pd.read_csv('downloaded_data/norm_ygainers.csv')
+            normalized_data.to_csv(f"downloaded_data/{timestamp}_norm_ygainers.csv", index=False)
+            print(f"Yahoo Gainers saved with timestamp: {timestamp}")
+        except Exception as e:
+            print(f"Error saving the timestamped CSV file: {e}")

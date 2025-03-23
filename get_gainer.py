@@ -41,7 +41,7 @@ class ProcessGainer:
 
     def process(self):
         """Executes the full gainer data processing pipeline."""
-        input_csv_path = self._download()
+        self._download()
         self._normalize()
         self._save_to_file()
 

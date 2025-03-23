@@ -6,8 +6,10 @@ such as Yahoo or WSJ. The correct classes are chosen based on the input choice p
 to the factory.
 """
 
-from .yahoo import GainerDownloadYahoo, GainerProcessYahoo
-from .wsj import GainerDownloadWSJ, GainerProcessWSJ
+#from .yahoo import GainerDownloadYahoo, GainerProcessYahoo
+#from .wsj import GainerDownloadWSJ, GainerProcessWSJ
+from bin.gainers.wsj import GainerDownloadWSJ, GainerProcessWSJ
+from bin.gainers.yahoo import GainerDownloadYahoo, GainerProcessYahoo
 
 class GainerFactory:
     """

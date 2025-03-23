@@ -6,10 +6,10 @@ saving the data.
 """
 
 import os
-import pandas as pd
 from datetime import datetime
-from .base import GainerDownload, GainerProcess
-
+import pandas as pd
+#from .base import GainerDownload, GainerProcess
+from bin.gainers.base import GainerDownload, GainerProcess
 
 class GainerDownloadWSJ(GainerDownload):
     """
@@ -50,11 +50,6 @@ class GainerProcessWSJ(GainerProcess):
     A class to process the WSJ Gainers data by normalizing and saving it.
     Inherits from GainerProcess and implements the normalize and save_with_timestamp methods.
     """
-    def __init__(self):
-        """
-        Initializes the GainerProcessWSJ class.
-        """
-        pass
 
     def normalize(self):
         """
@@ -64,34 +59,32 @@ class GainerProcessWSJ(GainerProcess):
         :raises Exception: If saving the normalized CSV file fails.
         """
         print("Normalizing WSJ gainers")
-        raw = pd.read_csv('downloaded_data/wsjgainers.csv')
-
-
-    # Define expected columns mapping
-        column_mapping = {
-            "Unnamed: 0": "Name",
-            "Last": "Price",
-            "Chg": "Price Change",
-            "% Chg": "Price Percent Change"
-        }
-
-    # Rename columns
-        raw.rename(columns=column_mapping, inplace=True)
-
-    # Enforce data types
-        raw["Name"] = raw["Name"].astype(str)
-        raw["Price"] = pd.to_numeric(raw["Price"], errors="coerce")
-        raw["Price Change"] = pd.to_numeric(raw["Price Change"], errors="coerce")
-        raw["Price Percent Change"] = pd.to_numeric(raw["Price Percent Change"], errors="coerce")
-
-    # Save normalized CSV
         try:
+            raw = pd.read_csv('downloaded_data/wsjgainers.csv')
+
+            # Define expected columns mapping
+            column_mapping = {
+                "Unnamed: 0": "Name",
+                "Last": "Price",
+                "Chg": "Price Change",
+                "% Chg": "Price Percent Change"
+            }
+
+            # Rename columns
+            raw.rename(columns=column_mapping, inplace=True)
+
+            # Enforce data types
+            raw["Name"] = raw["Name"].astype(str)
+            raw["Price"] = pd.to_numeric(raw["Price"], errors="coerce")
+            raw["Price Change"] = pd.to_numeric(raw["Price Change"], errors="coerce")
+            raw["Price Percent Change"] = pd.to_numeric(
+                raw["Price Percent Change"], errors="coerce")
+
+            # Save normalized CSV
             raw.to_csv('downloaded_data/norm_wsjgainers.csv', index=False)
-            print(f"Normalized file saved")
+            print("Normalized file saved")
         except Exception as e:
             print(f"Error saving the CSV file: {e}")
-            return None
-
 
     def save_with_timestamp(self):
         """
@@ -99,8 +92,11 @@ class GainerProcessWSJ(GainerProcess):
 
         :raises Exception: If saving the timestamped file fails.
         """
-        print("Saving WSJ gainers")
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        normalized_data = pd.read_csv('downloaded_data/norm_wsjgainers.csv')
-        normalized_data.to_csv(f"downloaded_data/{timestamp}_norm_wsjgainers.csv", index=False)
-        print(f"WSJ gainers saved with timestamp")
+        print("Saving WSJ gainers with timestamp")
+        try:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            normalized_data = pd.read_csv('downloaded_data/norm_wsjgainers.csv')
+            normalized_data.to_csv(f"downloaded_data/{timestamp}_norm_wsjgainers.csv", index=False)
+            print(f"WSJ Gainers saved with timestamp: {timestamp}")
+        except Exception as e:
+            print(f"Error saving the timestamped CSV file: {e}")
