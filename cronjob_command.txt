@@ -1,0 +1,7 @@
+
+
+
+
+31 13 * * 1-5 cd /home/ubuntu/SP25_DS5111_nnx3ue && /home/ubuntu/SP25_DS5111_nnx3ue/env/bin/python3 get_gainer.py wsj && /home/ubuntu/SP25_DS5111_nnx3ue/env/bin/python3 get_gainer.py yahoo && rm wsjgainers.html && rm ygainers.html && cd /home/ubuntu/SP25_DS5111_nnx3ue/downloaded_data && rm wsjgainers.csv && rm norm_wsjgainers.csv && rm ygainers.csv && rm norm_ygainers.csv
+30 16 * * 1-5 cd /home/ubuntu/SP25_DS5111_nnx3ue && /home/ubuntu/SP25_DS5111_nnx3ue/env/bin/python3 get_gainer.py wsj && /home/ubuntu/SP25_DS5111_nnx3ue/env/bin/python3 get_gainer.py yahoo && rm wsjgainers.html && rm ygainers.html && cd /home/ubuntu/SP25_DS5111_nnx3ue/downloaded_data && rm wsjgainers.csv && rm norm_wsjgainers.csv && rm ygainers.csv && rm norm_ygainers.csv
+1 20 * * 1-5 cd /home/ubuntu/SP25_DS5111_nnx3ue && /home/ubuntu/SP25_DS5111_nnx3ue/env/bin/python3 get_gainer.py wsj && /home/ubuntu/SP25_DS5111_nnx3ue/env/bin/python3 get_gainer.py yahoo && rm wsjgainers.html && rm ygainers.html && cd /home/ubuntu/SP25_DS5111_nnx3ue/downloaded_data && rm wsjgainers.csv && rm norm_wsjgainers.csv && rm ygainers.csv && rm norm_ygainers.csv
