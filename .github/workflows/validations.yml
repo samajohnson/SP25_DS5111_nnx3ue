@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12"] # let's drop 3.10 and 3.11 and go with 3.12 and 3.13
 
     steps:
       - uses: actions/checkout@v4

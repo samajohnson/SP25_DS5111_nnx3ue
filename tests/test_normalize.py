@@ -10,6 +10,7 @@ import pandas as pd
 download_dir = 'downloaded_data'
 
 def test_wsj_normalize():
+    # would be nice to try out the given/when/then comment style, just so you can see what that feels like
     processor = GainerProcessWSJ()
     processor.normalize()
     output_file = f'{download_dir}/norm_wsjgainers.csv'

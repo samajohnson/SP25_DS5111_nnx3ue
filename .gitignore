@@ -1,0 +1,12 @@
+You're missing a .gitignore file
+
+In this file you should have 
+
+env/
+**/*__pycache__
+
+
+at the least, to keep those files which technically are not part of your codebase.
+
+I see you have some __pychache__ directories... do a `git rm -rf` with those first to let git know you want to remove them.
+After that set up this file with the two lines I mentioned, and let me know if that keeps them from comming back into the fray.
