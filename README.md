@@ -16,6 +16,7 @@ After following the steps outlined in the VM Setup section, the user should do t
 
 ## Repository Structure
 
+```
 SP25_DS5111_nnx3ue
 ├── 00_00_setup_script_for_git_github.md
 ├── 00_01_setup_git_global_creds.md
@@ -24,7 +25,7 @@ SP25_DS5111_nnx3ue
 ├── makefile
 ├── README.md
 └──requirements.txt
-
+```
 ![Feature Validation](https://github.com/samajohnson/SP25_DS5111_nnx3ue/actions/workflows/validations.yml/badge.svg)
 
 
