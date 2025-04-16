@@ -19,3 +19,33 @@ models:
         data_tests:
           - unique
           - not_null
+
+  - name: french
+    description: "test french table"
+    columns:
+      - name: FR
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null 
+          - accepted_values:
+              values:  ['un', 'deux', 'trois']
+
+
+  - name: enfr
+    description: "insure all values in en column are also in ende"
+    columns:
+      - name: EN
+        data_tests:
+          - relationships:
+              to: ref('ende')
+              field: EN
+
+
+  - name: ende
+    description: "test that we only have German words"
+    columns:
+      - name: DE
+        data_tests:
+          - accepted_values:
+              values:  ['einz', 'zwei', 'drei']
