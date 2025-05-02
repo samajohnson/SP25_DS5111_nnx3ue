@@ -1,3 +1,4 @@
+```mermaid
 erDiagram
     STOCKS {
         string symbol PK
@@ -50,3 +51,4 @@ erDiagram
     STOCKS ||--o{ STEADY_STOCKS : "feeds"
     STOCKS ||--o{ PRICE_RANGES : "feeds"
     STOCKS ||--o{ VOLUME_RANGES : "feeds"
+```
